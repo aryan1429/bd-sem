@@ -1,0 +1,212 @@
+UNIT-3 SUMMARY (Pig + Flume) — TXT-Ready
+PIG
+1. Comparison with Databases
+
+Pig is for big data processing on Hadoop.
+
+Databases (RDBMS) are for transactional data.
+
+Pig uses Pig Latin (procedural).
+
+DB uses SQL (declarative).
+
+Pig handles semi-structured data (bags, tuples).
+
+DB handles structured tables.
+
+Pig works on TBs/PBs using MapReduce/Tez/Spark.
+
+Pig inherits Hadoop fault-tolerance.
+
+2. Pig Latin – Structure
+
+Pig Latin is a data-flow scripting language.
+
+Steps: Load → Transform → Store.
+
+Every operation outputs a “relation” (like a table).
+
+Common operators: LOAD, STORE, FILTER, GROUP, JOIN, ORDER, UNION, SPLIT, FOREACH…GENERATE.
+
+3. Statements
+
+LOAD: Read data.
+
+STORE: Write data.
+
+FILTER: Select rows based on condition.
+
+FOREACH…GENERATE: Transform fields.
+
+GROUP/COGROUP: Group data for aggregation.
+
+JOIN: Combine relations using keys.
+
+ORDER: Sort data.
+
+UNION: Merge relations.
+
+SPLIT: Divide relation into parts.
+
+Best practice: Use meaningful relation names.
+
+4. Expressions
+
+Used to compute values.
+
+Types: Arithmetic, String, Logical, Conditional, Built-in functions.
+
+Can be nested.
+
+Used mainly inside FOREACH, FILTER, GROUP.
+
+5. Data Types
+
+Primitive: int, long, float, double, chararray, bytearray.
+
+Complex:
+
+tuple → (a,b,c)
+
+bag → collection of tuples
+
+map → key-value pairs
+
+Type casting available.
+
+6. Schemas
+
+Schemas define field names + data types.
+
+Improve readability and error checking.
+
+Syntax: AS (id:int, name:chararray).
+
+Used in FILTER, JOIN, FOREACH, GROUP.
+
+7. Functions
+
+Built-in: String (UPPER), Math (ABS), Aggregation (SUM, AVG).
+
+User-Defined Functions (UDFs): Custom logic written in Java/Python.
+
+Types of UDFs: Filter UDF, Eval UDF, Load UDF, Store UDF.
+
+Registered using REGISTER command.
+
+8. Macros
+
+Reusable Pig Latin code blocks.
+
+Defined using DEFINE.
+
+Help avoid repetition.
+
+Accept parameters.
+
+Improve modularity and readability.
+
+9. Data Processing Operators
+
+LOAD/STORE → input/output
+
+FILTER → removing unwanted data
+
+GROUP/JOIN → combining or grouping
+
+ORDER → sorting
+
+UNION → merging
+
+SPLIT → dividing large data
+
+Used to build data pipelines.
+
+10. Pig in Practice
+
+Parallelism: Use PARALLEL keyword to increase reducers.
+
+Anonymous Relations: Operations without assigning names.
+
+Parameter Substitution: Pass values at runtime using –param.
+
+FLUME
+1. What is Flume?
+
+A distributed system for collecting and moving large amounts of log/event data.
+
+Moves data from sources → HDFS/HBase.
+
+Reliable and fault-tolerant.
+
+2. Core Components
+
+Event: Unit of data (log line).
+
+Source: Receives data (Syslog, Avro, Thrift).
+
+Channel: Buffers data (memory/file).
+
+Sink: Writes data to destination (HDFS, HBase, logger).
+
+Flow: Source → Channel → Sink
+
+3. Working with Flume
+
+Runs using "agents".
+
+Each agent has: one source, one channel, one sink.
+
+Supports multi-hop (agent → agent).
+
+Used for continuous log ingestion.
+
+4. Transactions and Reliability
+
+Uses transactions to ensure no data loss.
+
+Source puts data → Channel stores → Sink takes data.
+
+If failure → rollback + retry.
+
+Channel types:
+
+Memory: fast
+
+File: reliable and persistent
+
+5. HDFS Sink
+
+Writes data into HDFS directories.
+
+Supports rolling by file size, time, or event count.
+
+Ensures atomic writes using Flume transactions.
+
+6. Fan Out
+
+One source can send data to multiple sinks.
+
+Useful for storing same data in different systems.
+
+Implemented with multiple channels.
+
+7. Distribution
+
+Load balancing events across multiple sinks.
+
+Avoids bottlenecks.
+
+Multiplexing: route based on event headers/content.
+
+Helps scale log ingestion.
+
+8. Best Practices
+
+Use file channels for production reliability.
+
+Tune HDFS sink roll interval.
+
+Use fan-out only when needed.
+
+Monitor channel sizes to prevent overflow.
