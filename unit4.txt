@@ -1,0 +1,250 @@
+BIG DATA – UNIT 4 SUMMARY (FULL PDF SUMMARY)
+HIVE – OVERVIEW
+
+Hive is a data warehouse tool on Hadoop that lets users query data in HDFS using HiveQL (SQL-like language).
+It converts HiveQL queries into MapReduce / Tez / Spark jobs.
+
+Key points:
+
+SQL-like interface for big data
+
+Works with huge datasets
+
+Schema-on-read
+
+Good for batch processing (not real-time)
+
+Hive Architecture
+
+Components:
+
+User Interface: CLI, Web UI, JDBC/ODBC
+
+Driver: Parses and manages queries
+
+Compiler: Creates execution plan
+
+Optimizer: Improves the plan
+
+Execution Engine: Runs jobs
+
+Metastore: Stores metadata (tables, partitions)
+
+HDFS: Stores actual data
+
+Hive Data Units
+
+Database – collection of tables
+
+Table – structured data in HDFS
+
+Managed table (Hive owns data)
+
+External table (Hive owns metadata only)
+
+Partition – divides table into directories
+
+Bucket – divides table/partition into files
+
+HiveQL
+
+HiveQL supports DDL, DML, Queries, Joins, Views, Subqueries, UDFs.
+
+Example:
+
+CREATE TABLE employees (...);
+LOAD DATA INPATH 'file' INTO TABLE employees;
+SELECT dept, AVG(salary) FROM employees GROUP BY dept;
+
+
+Hive Query Execution Steps:
+
+Query submitted
+
+Parsing & validation
+
+Plan generation
+
+Optimization
+
+Execution via MR/Tez/Spark
+
+Results returned
+
+Hive Storage Formats
+
+TEXTFILE (default)
+
+ORC – optimized columnar, fastest
+
+Parquet – columnar
+
+SequenceFile – binary key-value
+
+Avro – row-based with schema evolution
+
+RCFile – hybrid
+
+Hive Data Types
+
+Primitive Types:
+INT, BIGINT, FLOAT, DOUBLE, BOOLEAN, STRING, CHAR, VARCHAR, DECIMAL, DATE, TIMESTAMP
+
+Complex Types:
+ARRAY, MAP, STRUCT, UNIONTYPE
+
+Hive Operators
+
+Relational: =, !=, <, >, <=, >=, LIKE, RLIKE, BETWEEN, IN, IS NULL
+Arithmetic: +, -, *, /, %
+Logical: AND, OR, NOT
+Complex Type Operators: array[index], map[key], struct.field
+String Operators: TRIM, UPPER, LOWER, CONCAT, SUBSTR, REVERSE, LENGTH
+
+Hive Functions
+
+Aggregate: COUNT, SUM, AVG, MIN, MAX
+Math: ROUND, FLOOR, CEIL, ABS, SQRT, RAND
+String: LENGTH, REVERSE, CONCAT, SUBSTR
+Date: CURRENT_DATE, YEAR, MONTH, DAY, DATEDIFF
+Conditional: IF, CASE WHEN
+Collection: SIZE, MAP_KEYS, MAP_VALUES, ARRAY_CONTAINS
+UDFs: Custom Java/Python functions
+
+Hive Tables and Related Concepts
+1. Managed Table
+
+Hive controls data + metadata
+
+Dropping removes BOTH
+
+2. External Table
+
+Data stays outside Hive warehouse
+
+Dropping removes metadata only
+
+3. Partitions
+
+Divide data by column (year, month)
+
+Static Partition: specify explicitly
+
+Dynamic Partition: Hive detects automatically
+
+4. Buckets
+
+Table divided into fixed number of files
+
+Based on: hash(column) % buckets
+
+Useful for joins & sampling
+
+5. Importing Data
+
+LOAD DATA
+
+INSERT INTO SELECT
+
+6. Alter Table
+
+Add column, rename table, add partition.
+
+7. Dropping Tables
+
+Managed → deletes data
+
+External → keeps data
+
+8. Querying
+
+SELECT, WHERE, GROUP BY, ORDER BY
+
+9. MapReduce Scripts
+
+Run external scripts using TRANSFORM.
+
+10. Joins
+
+INNER, LEFT, RIGHT, FULL OUTER, CROSS
+
+11. Subqueries
+
+Allowed in SELECT, FROM, WHERE.
+
+12. Views
+
+Logical tables created from queries.
+
+13. UDFs
+
+Custom user-defined functions.
+
+SQOOP – SUMMARY
+
+Sqoop = SQL + Hadoop
+Used to transfer data between RDBMS ↔ Hadoop.
+
+Key Features:
+
+Import RDBMS data into HDFS/Hive/HBase
+
+Export HDFS data to RDBMS
+
+Supports parallel processing
+
+Supports incremental import
+
+Automatically generates MapReduce code
+
+Sqoop Connectors
+
+JDBC Connector (MySQL, Oracle, PostgreSQL)
+
+HDFS Connector
+
+Hive Connector
+
+HBase Connector
+
+Custom Connectors
+
+Sqoop Import
+
+Basic Import:
+
+sqoop import --connect jdbc:mysql://... --table employees --target-dir /hdfs/path
+
+
+Import into Hive:
+
+sqoop import --table employees --hive-import
+
+
+Incremental Import:
+
+--incremental append --check-column id --last-value 100
+
+Generated Code
+
+Sqoop auto-generates MapReduce code for reading/writing database rows.
+
+Working With Imported Data
+
+Can be processed with Hive, Pig, Spark
+
+Stored in HDFS in text/Avro/Parquet
+
+Sqoop Export
+
+Moves data from HDFS → RDBMS
+
+sqoop export --table employees --export-dir /hdfs/path
+
+Sqoop Summary Table
+Feature	Description
+Purpose	Data transfer between RDBMS ↔ Hadoop
+Import	Load tables into HDFS/Hive
+Export	Move results back to database
+Incremental	Import only new rows
+Connectors	JDBC, Hive, HBase
