@@ -1,0 +1,35 @@
+Big Data – Unit I Summary (Extended)
+
+Big Data Basics:
+Big Data refers to extremely large, fast, and complex datasets that cannot be handled by traditional database systems. It includes data from people, machines, sensors, social media, transactions, and many other sources. Traditional systems fail because the amount of data is huge, the speed of generation is high, and the data comes in many different formats.
+
+Big Data Analytics:
+Big Data Analytics is the process of collecting, storing, processing, cleaning, and analyzing massive datasets to identify patterns, relationships, and insights. It helps organizations make better decisions. The basic steps in analytics include data collection, data storage, data processing, data cleansing, and data analysis. Tools like Hadoop, Spark, Python, and R are commonly used.
+
+Evolution of Big Data:
+The idea of handling large datasets started in the 1960s with the first databases. By 2005, online platforms like Facebook and YouTube started generating massive data, leading to the creation of Hadoop. Later, NoSQL databases and cloud computing improved storage and processing. Today, IoT devices, machine learning, and cloud platforms generate even more data, pushing Big Data to a new level.
+
+Challenges with Traditional Systems:
+Traditional systems face many issues when handling Big Data. They struggle with storing huge data volumes, processing fast incoming data, and dealing with different data types. There is a shortage of skilled professionals, difficulty combining data from multiple sources, and problems in turning raw data into meaningful insights. These challenges make traditional systems unsuitable for modern data needs.
+
+Characteristics of Big Data:
+Big Data is commonly described using the 3 V’s:
+Volume – Large amounts of data.
+Velocity – Fast generation of data in real time.
+Variety – Different types of data (text, images, video, logs, tables).
+Other V’s include Value (usefulness of data), Veracity (trustworthiness), Validity (accuracy for a specific use), Variability (changing meanings), Volatility (lifespan), Valence (connections in data), Venue (where data is stored), Vocabulary (metadata), and Vagueness (unclear meaning of “big data”). These characteristics explain why Big Data is difficult to manage and analyze.
+
+Types of Big Data:
+Big Data can be structured, unstructured, or semi-structured. Structured data is organized in tables (like employee records). Unstructured data includes images, videos, messages, and documents without a fixed format. Semi-structured data includes XML, JSON, and log files, which have some structure but not as rigid as tables.
+
+Sources of Big Data:
+Big Data comes from many sources such as social media platforms (Facebook, Instagram, Twitter), e-commerce websites (Amazon, Flipkart), telecom companies (call records), weather stations, satellites, IoT devices, bank transactions, and stock markets. These sources produce massive and continuous flows of data every second.
+
+Distributed, Parallel, and Cloud Computing:
+Big Data cannot be processed on a single computer. Distributed computing uses many connected computers to store and process data. Parallel computing divides a task into smaller parts and processes them simultaneously. Cloud computing provides on-demand storage and processing power through platforms like AWS, Azure, and Google Cloud. These approaches make Big Data processing fast, scalable, and affordable.
+
+Analytics Toolkit:
+The Big Data analytics toolkit includes technologies for storage (HDFS, data lakes), processing (Hadoop, Spark, MapReduce), databases (MongoDB, Cassandra, HBase), programming (Python, R), visualization (Tableau, Power BI), and stream processing (Kafka, Storm). These tools help collect, store, process, analyze, and visualize large datasets efficiently.
+
+Analytic Sandbox:
+An analytic sandbox is a separate environment where analysts can experiment with data without affecting the main production system. It is used for testing, exploration, prototyping, and building new models. An internal sandbox exists inside the main system. An external sandbox is a separate machine or server. A hybrid sandbox uses both internal and external parts. Sandboxes help analysts work independently while keeping production systems safe.
