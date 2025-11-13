@@ -1,0 +1,307 @@
+⭐ UNIT – II SUMMARY (TXT-READY)
+
+1. Hadoop Overview
+
+Hadoop is an open-source, Java-based framework used to store and process Big Data using clusters of inexpensive machines. It provides massive scalability, fault-tolerance, and distributed processing.
+Main components of Hadoop:
+
+Hadoop Common
+
+HDFS (Hadoop Distributed File System)
+
+YARN (Yet Another Resource Negotiator)
+
+MapReduce
+
+2. Features of Hadoop
+
+Scalable: Add more machines easily.
+
+Reliable: Data is replicated, so no data loss if a machine fails.
+
+Flexible: Stores structured, semi-structured, unstructured data.
+
+Cost-effective: Open source, uses commodity hardware.
+
+Compatible: Java-based, works across platforms.
+
+3. HDFS (Hadoop Distributed File System)
+
+HDFS stores very large files by splitting them into blocks (default 64MB or 128MB). Files are distributed across DataNodes and controlled by a NameNode.
+
+Key points:
+
+Stores few large files, not many small ones.
+
+Replication factor is 3 by default.
+
+Highly fault-tolerant and scalable up to petabytes.
+
+HDFS Components:
+
+NameNode:
+
+Master node, stores metadata (file names, block locations).
+
+Single point of failure.
+
+DataNode:
+
+Slave node, stores actual data blocks.
+
+Sends heartbeat and block reports to NameNode.
+
+Secondary NameNode:
+
+Periodically merges metadata and edits logs.
+
+Helps reduce NameNode downtime; not a backup.
+
+Replication Policy:
+
+With replication factor 3:
+
+One copy in local rack
+
+One copy on remote rack (different node)
+
+One more copy on same remote rack
+
+4. MapReduce Architecture
+
+MapReduce is a programming model for parallel processing of large datasets.
+
+Components:
+
+Client: Submits job.
+
+Job: Work given by client.
+
+Job-parts: Job is split into smaller tasks.
+
+Input Data: Data fed to MapReduce.
+
+Output Data: Final processed result.
+
+Phases:
+Map Phase:
+
+Processes input splits.
+
+Produces intermediate key-value pairs.
+
+Shuffle and Sort:
+
+Transfers mapper output to reducers.
+
+Groups values by keys.
+
+Sorts keys.
+
+Reduce Phase:
+
+Takes grouped key-values.
+
+Performs aggregation/summarization.
+
+Produces final output.
+
+Combiner:
+
+Optional mini-reducer.
+
+Reduces data transfer between mapper and reducer.
+
+Performs local aggregation.
+
+5. YARN Architecture
+
+YARN is the resource management layer of Hadoop.
+It separates resource management and job execution.
+
+YARN Components:
+
+Resource Manager (RM):
+
+Master daemon.
+
+Allocates cluster resources.
+
+Contains:
+a) Scheduler – allocates resources only
+b) Application Manager – manages application submissions
+
+Node Manager (NM):
+
+Runs on each node.
+
+Manages containers.
+
+Monitors CPU, memory, disk, network.
+
+Sends logs to central storage.
+
+Application Master (AM):
+
+One per application.
+
+Negotiates resources with RM.
+
+Tracks task progress and restarts failed tasks.
+
+Containers:
+
+Smallest resource allocation unit.
+
+Provides memory, CPU, and environment to run tasks.
+
+6. Scheduling in YARN
+
+Scheduler decides how resources are assigned to applications.
+
+Types of Schedulers:
+
+FIFO Scheduler:
+
+First come, first served.
+
+Simple, but high-priority jobs may wait.
+
+Capacity Scheduler:
+
+Multiple queues with fixed capacities.
+
+Ideal for companies with many departments.
+
+Ensures cluster sharing.
+
+Fair Scheduler:
+
+All jobs get a fair share of resources.
+
+Good for mixed workloads.
+
+Dominant Resource Fairness (DRF):
+
+Fairness based on CPU, memory, etc.
+
+Useful when different jobs need different resources.
+
+YARN Scheduling Process:
+
+Application submitted
+
+RM allocates container for Application Master
+
+AM requests more containers
+
+Scheduler assigns resources
+
+Node Managers launch containers
+
+Tasks run and release resources after completion
+
+7. Hadoop I/O (Input Formats)
+
+Defines how input files are split and read.
+
+Common InputFormats:
+
+FileInputFormat:
+
+Base class for file-based inputs.
+
+TextInputFormat:
+
+Default.
+
+Each line = one record.
+
+Key = byte offset, Value = line text.
+
+KeyValueTextInputFormat:
+
+Splits each line into key-value by tab.
+
+SequenceFileInputFormat:
+
+Reads binary key-value pairs.
+
+SequenceFileAsTextInputFormat:
+
+Converts binary key-value into text.
+
+SequenceFileAsBinaryInputFormat:
+
+Extracts keys/values as raw binary.
+
+NLineInputFormat:
+
+Gives each mapper N lines.
+
+DBInputFormat:
+
+Reads data from relational databases using JDBC.
+
+8. Data Integrity in Hadoop
+
+Ensures accuracy and consistency of data.
+
+Uses checksums to detect corruption.
+
+Default checksum per 512 bytes.
+
+Uses CRC-32 for fast validation.
+
+Bad blocks are reported and replaced using replicas.
+
+Local FileSystem stores .crc files for each block.
+
+Datanodes periodically scan blocks using DataBlockScanner.
+
+9. Compression in Hadoop
+
+Improves performance by:
+
+Reducing disk usage
+
+Reducing network transfer
+
+Speeds up processing
+
+Common algorithms: gzip, bzip2, LZO, zip.
+
+10. Serialization in Hadoop
+
+Serialization = converting objects to byte streams.
+Deserialization = converting byte streams back to objects.
+
+Used for:
+
+Data storage
+
+Network communication (RPC)
+
+Hadoop uses Writable classes for fast, compact serialization.
+
+11. File-based Data Structures
+
+SequenceFile:
+
+Binary key-value storage.
+
+Used for logs and intermediate data.
+
+MapFile:
+
+Sorted SequenceFile with an index.
+
+Supports fast lookup by key.
+
+12. Replica Management
+
+Every block is replicated (default factor = 3).
+
+If one node fails, replicas from other nodes are used.
+
+NameNode controls placement and recovery of replicas.
