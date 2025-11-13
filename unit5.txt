@@ -1,0 +1,346 @@
+BIG DATA – UNIT 5 (SUMMARY FOR .TXT FILE)
+SPARK
+
+Apache Spark is an open-source, distributed big data processing system that works fast because it processes data in memory. It is faster and more efficient than Hadoop MapReduce.
+
+Why Spark?
+
+MapReduce reads/writes data to disk → slow
+
+Spark processes in memory → very fast
+
+Supports many languages (Python, Scala, Java, R, SQL)
+
+One platform for batch, streaming, ML, graphs
+
+Fault tolerance through RDD lineage
+
+Spark Core Concepts
+1. RDD (Resilient Distributed Dataset)
+
+Main data structure in Spark
+
+Immutable, distributed collection of data
+
+Stored in partitions
+
+Automatically recovers from failures
+
+2. Transformations
+
+Create new RDDs
+
+Lazy (do not run immediately)
+Examples: map, filter, flatMap, union, distinct, reduceByKey
+
+3. Actions
+
+Trigger execution
+Examples: collect, count, first, take, reduce, saveAsTextFile
+
+4. Lazy Evaluation
+
+Transformations build a plan
+
+Actual execution happens only when an action is called
+
+Spark Components
+
+Spark Core → Basic engine (task scheduling, memory)
+
+Spark SQL → SQL queries, DataFrames
+
+Spark Streaming → Real-time data
+
+MLlib → Machine learning library
+
+GraphX → Graph analytics
+
+Spark Architecture
+
+Driver Program – Runs the main code, creates SparkContext
+
+Cluster Manager – Allocates resources (YARN, Mesos, Kubernetes)
+
+Executors – Run tasks on worker nodes
+
+RDD OPERATIONS
+RDD Creation
+
+Parallelizing a local collection
+
+Loading external datasets (HDFS, S3, local files, NoSQL DBs)
+
+Transformations (Lazy)
+
+map
+
+flatMap
+
+filter
+
+union
+
+intersection
+
+subtract
+
+distinct
+
+groupByKey
+
+reduceByKey
+
+sortByKey
+
+Actions
+
+collect
+
+count
+
+first
+
+take
+
+reduce
+
+saveAsTextFile
+
+countByValue
+
+foreach
+
+Persistence (Caching)
+
+Used to avoid recomputing the same RDD multiple times.
+
+Storage Levels
+
+MEMORY_ONLY
+
+MEMORY_AND_DISK
+
+DISK_ONLY
+
+MEMORY_ONLY_SER
+
+MEMORY_AND_DISK_SER
+
+OFF_HEAP
+
+Serialization
+
+Converts objects to bytes so Spark can send them across network.
+
+Types
+
+Java Serialization (default, slower)
+
+Kryo Serialization (faster, compact)
+
+Shared Variables
+1. Broadcast Variables
+
+Read-only data shared to all nodes efficiently
+
+Sent only once per executor
+
+2. Accumulators
+
+Used for counters and sums
+
+Only driver can read final value
+
+Anatomy of a Spark Job Run
+1. Job Submission
+
+An action is called → Spark sends job to cluster manager.
+
+2. DAG Construction
+
+Spark builds a Directed Acyclic Graph of stages.
+Two dependency types:
+
+Narrow (map, filter)
+
+Wide (reduceByKey, groupByKey → require shuffle)
+
+3. Task Scheduling
+
+Each stage is divided into tasks (one per partition).
+
+4. Task Execution
+
+Executors run tasks; may use cached data.
+
+5. Job Completion
+
+Results returned to driver or saved to storage.
+
+Executors & Cluster Managers
+Executors
+
+Run tasks
+
+Store RDD partitions
+
+Report results to driver
+
+Cluster Managers
+
+Manage resources
+Types:
+
+Standalone
+
+YARN
+
+Mesos
+
+Kubernetes
+
+HBASE
+
+Apache HBase is a distributed, column-oriented NoSQL database built on HDFS. It supports real-time read/write access to Big Data.
+
+Key Features of HBase
+
+Highly scalable
+
+Column-oriented
+
+Real-time access
+
+Fault tolerant (built on HDFS)
+
+Schema-less
+
+Strong consistency per row
+
+HBase Architecture
+Main Components
+
+HMaster → Manages RegionServers
+
+RegionServer → Handles read/write requests
+
+Region → Subset of a table’s rows
+
+ZooKeeper → Coordination service
+
+HDFS → Storage layer
+
+HBase Data Model
+
+Table → Collection of rows
+
+Row Key → Unique identifier
+
+Column Family → Group of columns
+
+Column Qualifier → Specific column
+
+Cell → Row + Column Family + Qualifier + Value + Timestamp
+
+Data is stored as key-value pairs, and tables are sparse.
+
+HBase Storage Concepts
+
+Region – Table split by row range
+
+RegionServer – Handles multiple regions
+
+MemStore – In-memory write buffer
+
+HFile – On-disk storage
+
+WAL (Write Ahead Log) – Ensures durability
+
+Compaction – Merge HFiles to improve performance
+
+ZooKeeper – Metadata & coordination
+
+HBase Write Process
+
+Write request sent
+
+Written to WAL
+
+Stored in MemStore
+
+Flushed to HFile when MemStore is full
+
+HBase Read Process
+
+Check BlockCache (memory)
+
+Check MemStore
+
+Read from HFiles in HDFS
+
+Combine results
+
+HBase vs RDBMS
+Feature	HBase	RDBMS
+Model	Column-oriented, schema-less	Row-oriented, fixed schema
+Queries	API/filters	SQL
+Storage	Distributed (HDFS)	Centralized
+Scalability	Horizontal	Vertical
+Transactions	Row-level	Full ACID
+Joins	No	Yes
+Use Case	Big Data, IoT, logs	Banking, ERP
+When to Use HBase
+
+Need real-time read/write
+
+Massive tables
+
+Flexible columns
+
+Hadoop ecosystem integration
+
+Building an Online Query Application in HBase
+Steps:
+1. Design Schema
+
+Example:
+
+Column families: personal, contact
+
+2. Create Table
+create 'customer', 'personal', 'contact'
+
+3. Insert Data
+put 'customer', '1001', 'personal:name', 'Ramesh'
+
+4. Retrieve Data
+
+get row
+
+scan table
+
+get column value
+
+5. Programmatic Access
+
+Use Python or Java to connect and query.
+
+6. Integrate with Web App
+
+Web backend queries HBase and returns results to user.
+
+7. Performance Optimization
+
+Cache frequent rows
+
+Sorted row keys
+
+Use filters and scanners
+
+FINAL SUMMARY
+
+Spark is a fast in-memory big data engine using RDDs, transformations, actions, caching, shared variables, and DAG-based execution across executors managed by a cluster manager.
+HBase is a column-oriented NoSQL database on HDFS that supports real-time access and massive scalability using regions, region servers, MemStore, WAL, and HFiles.
+
+Both systems are essential components of modern big data architecture.
