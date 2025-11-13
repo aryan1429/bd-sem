@@ -1,3 +1,3 @@
 # BD-SEM
 
-This repository contains materials and projects for the Big Data semester course.
+This Repo contains Big Data Notes from Unit 1 - 5
